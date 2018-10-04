@@ -23,10 +23,10 @@ header-includes:
 - \usepackage{placeins}
 - \usepackage{fancyhdr}
 - \usepackage{setspace}
+- \let\counterwithout\relax
+- \let\counterwithin\relax
 - \usepackage{chngcntr}
 - \onehalfspacing
-- \counterwithin{figure}{section}
-- \counterwithin{table}{section}
 ---
 
 ```{r setup, include = FALSE}
@@ -291,10 +291,10 @@ While mathematical a vector can be considered as a matrix with either one row or
 
 ```{r, eval = FALSE}
 E1 <- 1 # single element
-M.E1 <- matrix (E1,nrow=1) # 1x1 matrix of a single element
+M.E1 <- matrix (E1, nrow = 1) # 1x1 matrix of a single element
 
 Vec1 <- c(E1, E2, E3) # vector of length 3
-M.Vec1 <- matrix(Vec1,ncol=1) # 3x1 matrix of a single vector
+M.Vec1 <- matrix(Vec1, ncol = 1) # 3x1 matrix of a single vector
 
 ```
 
@@ -465,7 +465,7 @@ In addition, it is possible to generate html, pdf LaTeX and word documents with 
 R has multiple types of data structures which have different properties and are handled differently by some functions. You can find data stored as matrices, lists, data frames, arrays, factors and more. Data types can be confusing to the beginning R user. Here we will introduce only the most common data types that you will encounter in this course. If you ever wish to check the data type of a specific variable, you can use the `class()` function:
 
 ```{r, echo = TRUE}
-Matr <- matrix(c(1,2,3,4),nrow=2)
+Matr <- matrix(c(1, 2, 3, 4), nrow = 2)
 class(Matr)
 ```
 
@@ -597,9 +597,9 @@ plot(mydata$age, mydata$sbp, col = 'blue',  ylab = "Systolic Blood Pressure", xl
 You can overlay two graphs on the same figure in order to identify any trend or level differences. For example, in order to present differences in the increase of SBP between women and men you could plot two graphs one above the other:
 
 ```{r}
-plot(mydata$age[mydata$gender == "female"], mydata$sbp[mydata$gender == "female"], main = "Scatter plot of Age versus SBP.", ylab = 'sbp', xlab= 'age')
+plot(mydata$age[mydata$gender == "female"], mydata$sbp[mydata$gender == "female"], main = "Scatter plot of Age versus SBP.", ylab = 'sbp', xlab = 'age')
 points(mydata$age[mydata$gender == "male"], mydata$sbp[mydata$gender == "male"], col = 2)
-legend(18, 175, legend=c("Female", "Male"),col=c(1, 2), lty=1:2, cex=0.8)
+legend(18, 175, legend = c("Female", "Male"),col = c(1, 2), lty = 1:2, cex = 0.8)
 ```
 
 Similarly, two line plots could be overlaid using the `lines()` instead of the `points()` function (and adding the `type = "l"` statement within the plot function accordingly). In most plots you can also add an extra legend within the plot itself, where all plotted variables can be explained. To do so you would have to use the `legend()` function. The `col = 2` adjusts the color of the points plotted. 
@@ -699,7 +699,7 @@ ggplot(mydata_subs1, aes(x = age, y = sbp, color = gender)) +
  color = "gray20", size = 3, 
  data = subset(mydata_subs1, id %in% c(1:5))) + 
  scale_color_manual(name = "",
- values = c("hotpink", "royalblue"))+
+ values = c("hotpink", "royalblue")) +
  theme_bw()
 ```
 
@@ -964,19 +964,19 @@ vectsubset <- vector() # vector that will store subset results
 
 for(i in 1:length(sizesample)){ # for every different sizesample
 # create mydata_boot which is a resample with replacement from mydata the size of sizesample[i]
-mydata_boot <- mydata[sample(1:69,size = sizesample[i], replace = T),]  
+mydata_boot <- mydata[sample(1:69, size = sizesample[i], replace = T),]  
 
 # Assing to K microbenchmark of using subset to filter a dataset.
 # microbenchmark tests how long it takes to conduct an operation 100 times, taking the mean and dividing to make units in seconds.
 
 K <- microbenchmark(subset(mydata_boot, gender == "male" & age < 40& smoke == 1))
-vectsubset <- append(vectsubset, mean(K$time)/(1000000 * 1000))
+vectsubset <- append(vectsubset, mean(K$time) / (1000000 * 1000))
 
-K <- microbenchmark(mydata_boot[mydata_boot$age < 40 & mydata_boot$smoke == 1 & mydata_boot$gender == "male",])
-vecttrad <- append(vecttrad, mean(K$time)/(1000000 * 1000))
+K <- microbenchmark(mydata_boot[mydata_boot$age < 40 & mydata_boot$smoke == 1 & mydata_boot$gender == "male", ])
+vecttrad <- append(vecttrad, mean(K$time) / (1000000 * 1000))
 
 K <- microbenchmark( filter(mydata_boot, gender == "male", age < 40, smoke == 1))
-vectdplyr <- append(vectdplyr, mean(K$time)/(1000000 * 1000))
+vectdplyr <- append(vectdplyr, mean(K$time) / (1000000 * 1000))
 
 # print(i/20) 
 }
@@ -1103,7 +1103,7 @@ var(mydata$sbp[ mydata$gender == "male" & mydata$smoke == "1"  ], na.rm = TRUE )
 var(mydata$sbp[ mydata$gender == "male" & mydata$smoke == "0"  ], na.rm = TRUE)
 var(mydata$sbp[ mydata$gender == "male" & is.na mydata$smoke)], na.rm = TRUE)
 var(mydata$sbp[ mydata$gender == "female" & mydata$smoke == "1"  ], na.rm = TRUE )
-var(mydata$sbp[ mydata$gender == "female" & mydata$smoke == "0"  ], na.r= TRUE )
+var(mydata$sbp[ mydata$gender == "female" & mydata$smoke == "0"  ], na.r = TRUE )
 
 # , na.rm = TRUE is telling R when calculating the mean or variance to ignore and NA values.
 # Or using two nested for loops.
