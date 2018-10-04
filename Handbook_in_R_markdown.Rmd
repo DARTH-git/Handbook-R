@@ -11,12 +11,12 @@ author:
 includes:
   in_header: preamble.tex
 output:
-  pdf_document:
-    toc: yes
   word_document:
     reference_docx: DARTH_Template_Markdown.docx
     toc: yes
     toc_depth: 1
+  pdf_document:
+    toc: yes
   html_document:
     toc: yes
 header-includes:
@@ -25,6 +25,8 @@ header-includes:
 - \usepackage{setspace}
 - \let\counterwithout\relax
 - \let\counterwithin\relax
+% \counterwithin{figure}{section}
+% \counterwithin{table}{section}
 - \usepackage{chngcntr}
 - \onehalfspacing
 ---
