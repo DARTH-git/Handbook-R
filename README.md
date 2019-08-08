@@ -1,6 +1,9 @@
 # Handbook-R
 A handbook on the use of R for decision modeling
 
+This repo contains outdated files, please go to the new repo (https://github.com/DARTH-git/R-Handbook) for the most updated version of the handbook.
+
+
 ## Full list of Contributors:
 
   * [Eline Krijkamp](https://github.com/krijkamp) 
@@ -17,3 +20,4 @@ A handbook on the use of R for decision modeling
 
 # Instructions on how to create a PDF version of the book using the DARTH corporate identity  
 From the .Rmd file in R, knit it to a .docx file. Add the front page to this Word file and save it as a PDF. 
+
